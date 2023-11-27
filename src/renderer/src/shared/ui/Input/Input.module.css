@@ -1,0 +1,94 @@
+.Wrapper {
+}
+
+.input {
+    height: 35px;
+    border: none;
+    font-family: inherit;
+    padding-right: 0;
+
+
+    &:focus {
+        outline: none;
+    }
+
+}
+
+.input[type='date'] {
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+    &::-webkit-datetime-edit-fields-wrapper {
+    }
+
+    &::-webkit-datetime-edit-text {
+        padding: 0;
+        margin: 0;
+    }
+
+    &::-webkit-datetime-edit-month-field {
+
+    }
+
+    &::-webkit-datetime-edit-day-field {
+    }
+
+    &::-webkit-datetime-edit-year-field {
+    }
+
+    &::-webkit-inner-spin-button {
+
+    }
+
+    &::-webkit-calendar-picker-indicator {
+        width: 1em;
+        font-size: inherit;
+        height: 1em;
+        cursor: pointer;
+    }
+}
+.cover{
+    display: none;
+}
+.fileInput {
+    display: none;
+}
+
+.with_icon {
+    display: flex;
+    align-items: center;
+    background: var(--inverted-primary-bg-color);
+    padding-right: 0.4em;
+}
+
+.right {
+    order: 1;
+}
+
+.left {
+    order: 0;
+}
+
+.icon {
+    height: 1.5em;
+    width: 1.5em;
+    cursor: pointer;
+}
+
+.readOnly * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.inputFile {
+    padding: 0.5em;
+    font: inherit;
+    background: transparent;
+    border: 1px solid black;
+    color: var(--primary-color);
+}

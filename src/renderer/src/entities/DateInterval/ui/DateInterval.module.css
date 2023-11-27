@@ -1,0 +1,26 @@
+.DateInterval {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+
+    .dateIntervalLabel {
+        color: var(--secondary-color);
+        user-select: none;
+        font-size: 0.8em;
+    }
+
+    .dateInterval {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+        padding: 0 0.5em;
+        gap: 0.4em;
+
+        .dash {
+            font-size: 1.5em;
+            line-height: 1.5;
+        }
+    }
+}

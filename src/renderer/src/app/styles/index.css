@@ -1,0 +1,41 @@
+@import "variables/global.css";
+@import "reset.css";
+
+.app {
+    min-height: 100vh;
+    width: 100%;
+    overflow: auto;
+    font: var(--font-m);
+    display: flex;
+    flex-direction: column;
+}
+
+.content_page{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.content_container {
+    padding: 0.5em 1em 2em;
+    max-width: 100%;
+    overflow: auto;
+}
+
+
+@media screen and (width < 321px) {
+    * {
+        font: var(--font-s);
+    }
+}
+@media screen and (width < 1024px) {
+    * {
+        font: var(--font-m);
+    }
+}
+
+@media screen and (width > 2300px) {
+    * {
+        font: var(--font-xl);
+    }
+}
