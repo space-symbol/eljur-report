@@ -1,0 +1,125 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5em;
+    position: relative;
+    height: auto;
+    transition: all 0.2s ease-out;
+    min-height: 35px;
+}
+
+.selectButtonWrapper {
+    position: relative;
+}
+
+.loader {
+    position: absolute;
+    top: -25px;
+    left: 0;
+}
+
+.label {
+    color: var(--secondary-color);
+    font-weight: inherit;
+    white-space: nowrap;
+    user-select: none;
+    font-size: 0.9em;
+}
+
+.openSelectModalButton {
+    text-overflow: ellipsis;
+    box-shadow: none;
+    border: 1px solid black;
+    user-select: none;
+
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+}
+
+.option {
+    color: var(--secondary-color);
+    background: var(--inverted-primary-bg-color);
+    transition: all 0.3s ease-out;
+    user-select: none;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.selectGroupModal {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: var(--modal-z-index);
+    max-height: 300px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgb(255, 255, 255);
+    border: 1px solid black;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.selectedOptions {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    padding: 0.5em 1em;
+
+}
+
+.bottomBorder {
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+.unselectedOptions {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    padding: 0.5em 1em;
+}
+
+.inputWrapper {
+    padding: 1em 1em 0;
+}
+
+.selected, .unselected:hover {
+    background: var(--primary-bg-color);
+    color: var(--inverted-primary-bg-color);
+}
+
+.selected {
+    border: none;
+}
+
+.allSelectButton {
+    &:hover {
+        background: #e7651e;
+        color: white;
+    }
+}
+
+.allSelectButtonActive {
+    background: #e7651eff;
+    color: white;
+}
+
+.errorMessage {
+    width: max-content;
+    font-size: 0.8em;
+    position: absolute;
+    bottom: -1.5em;
+    left: 0;
+    color: red;
+}
+
+.withError {
+    margin-bottom: 1em;
+}

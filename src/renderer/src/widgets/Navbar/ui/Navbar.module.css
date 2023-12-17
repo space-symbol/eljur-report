@@ -1,0 +1,28 @@
+.Navbar {
+    height: 60px;
+    background: var(--inverted-primary-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1em;
+    gap: 1em;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+
+    .active {
+        color: var(--primary-bg-color) ;
+    }
+}
+
+.link {
+    transition: all 0.2s ease-out;
+    color: var(--primary-color);
+    text-decoration: none;
+    user-select: none;
+
+    &:focus {
+        outline: none;
+        text-decoration: underline;
+    }
+}
+

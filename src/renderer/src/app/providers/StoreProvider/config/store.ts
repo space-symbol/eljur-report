@@ -4,13 +4,19 @@ import { CombinedState, configureStore, Reducer, ReducersMapObject } from '@redu
 import { createReducerManager } from './reducerManager'
 import { groupReducer } from '@renderer/entities/Group'
 import { fetchDataFormReducer } from '@renderer/features/fetchDataForm'
-import { dateIntervalReducer } from '@renderer/entities/DateInterval'
+import { dateIntervalReducer } from '@renderer/entities/DateInterval/models/slice/dateIntervalSlice'
+import { userReducer } from '@renderer/entities/User'
 
-export const createReduxStore = () => {
+export const createReduxStore = (
+  initialState?: StateSchema,
+  asyncReducers?: ReducersMapObject<StateSchema>
+) => {
   const rootReducers: ReducersMapObject<StateSchema> = {
+    ...asyncReducers,
+    user: userReducer,
     group: groupReducer,
-    dateInterval: dateIntervalReducer,
-    fetchDataForm: fetchDataFormReducer
+    fetchDataForm: fetchDataFormReducer,
+    dateInterval: dateIntervalReducer
   }
   const reducerManager = createReducerManager(rootReducers)
 
@@ -21,6 +27,7 @@ export const createReduxStore = () => {
   const store = configureStore({
     reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
     devTools: process.env.NODE_ENV === 'development',
+    preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: {

@@ -16,7 +16,7 @@ interface AppLinkProps extends LinkProps {
 }
 
 export const AppLink = (props: AppLinkProps) => {
-  const { to, className, children, theme = AppLinkTheme.PRIMARY, ...otherProps } = props
+  const { to, className, children, theme = AppLinkTheme.SECONDARY, ...otherProps } = props
 
   return (
     <Link

@@ -1,5 +1,8 @@
 export interface GroupSchema {
   groupsList: string[]
+  filteredGroupsList: string[]
+  selectedGroupsList: string[]
   isLoading: boolean
-  selected: string[]
+  error: string
+  isValid: boolean
 }

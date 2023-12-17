@@ -1,22 +1,41 @@
-.Wrapper {
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 100%;
+    position: relative;
 }
 
 .input {
-    height: 35px;
-    border: none;
-    font-family: inherit;
-    padding-right: 0;
+    min-height: 35px;
+    font: inherit;
+    padding: 0.5em;
+    width: 100%;
+    border: 1px solid black;
 
 
     &:focus {
         outline: none;
     }
+    &:read-only{
+        opacity: 0.8;
+        background: rgba(255, 255, 255, 0.39);
+        border: 1px solid rgba(0, 0, 0, 0.27);
+    }
+}
 
+.required {
+    color: red;
+}
+
+.inputLabel {
+    font-size: 0.8em;
+    color: var(--secondary-color);
+    user-select: none;
 }
 
 .input[type='date'] {
     &:hover {
-        opacity: 0.8;
         cursor: pointer;
     }
 
@@ -49,32 +68,45 @@
         cursor: pointer;
     }
 }
-.cover{
+
+.cover {
     display: none;
 }
+
 .fileInput {
     display: none;
 }
 
-.with_icon {
-    display: flex;
-    align-items: center;
-    background: var(--inverted-primary-bg-color);
-    padding-right: 0.4em;
-}
-
-.right {
-    order: 1;
-}
-
-.left {
-    order: 0;
+.withIcon {
+    padding-right: 2em;
 }
 
 .icon {
-    height: 1.5em;
-    width: 1.5em;
+    height: 1em;
+    width: 1em;
+}
+
+.iconButton {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    z-index: var(--refresh-icon-z-index);
     cursor: pointer;
+    top: 0;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.inputWrapper{
+    position: relative;
 }
 
 .readOnly * {

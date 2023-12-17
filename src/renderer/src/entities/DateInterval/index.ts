@@ -1,4 +1,8 @@
-export { DateInterval } from './ui/DateInterval'
-export type { DateIntervalSchema } from '@renderer/entities/DateInterval/models/types/DateIntervalSchema'
-export { dateIntervalReducer, dateIntervalActions } from './models/slice/dateIntervalSlice'
-export { getToDate, getFromDate } from './models/selectors/groupSelectors'
+export { DateIntervalInput } from './ui/DateIntervalInput'
+export type { DateIntervalSchema } from './models/types/DateIntervalSchema'
+export {
+  getDateIntervalToDateValue,
+  getDateIntervalFromDateValue,
+  getDateIntervalError,
+  getDateIntervalIsValid
+} from './models/selectors/dateIntervalSelectors'
