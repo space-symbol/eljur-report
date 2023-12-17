@@ -1,33 +1,36 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { DateIntervalSchema } from '../types/DateIntervalSchema'
 
-const currentDate = new Date().toISOString().substring(0, 10)
+const currentDate = new Date()
+const previousDate = new Date(new Date().setDate(currentDate.getDate() - 1))
+
+const formattedDefaultFromDate = previousDate.toISOString().substring(0, 10)
+const formattedDefaultToDate = currentDate.toISOString().substring(0, 10)
+
 const initialState: DateIntervalSchema = {
-  fromDate: currentDate,
-  toDate: currentDate
+  fromDateValue: formattedDefaultFromDate,
+  toDateValue: formattedDefaultToDate,
+  isValid: true,
+  error: ''
 }
+
 const dateIntervalSlice = createSlice({
-  name: 'fetchDataForm',
+  name: 'dateIntervalSlice',
   initialState,
   reducers: {
-    setFromDate: (state, action: PayloadAction<string>) => {
-      const toDay = new Date()
-      const newDate = new Date(action.payload)
-      if (toDay < newDate) {
-        state.fromDate = toDay.toISOString().substring(0, 10)
-      } else {
-        state.fromDate = action.payload
-      }
+    setFromDateValue: (state, action) => {
+      state.fromDateValue = action.payload
     },
-    setToDate: (state, action: PayloadAction<string>) => {
-      const toDay = new Date()
-      const newDate = new Date(action.payload)
-      if (toDay < newDate) {
-        state.toDate = toDay.toISOString().substring(0, 10)
-      } else {
-        state.toDate = action.payload
-      }
+    setToDateValue: (state, action) => {
+      state.toDateValue = action.payload
+    },
+    setIsValid: (state, action) => {
+      state.isValid = action.payload
+    },
+    setError: (state, action) => {
+      state.error = action.payload
     }
   }
 })
-export const { actions: dateIntervalActions, reducer: dateIntervalReducer } = dateIntervalSlice
+
+export const { reducer: dateIntervalReducer, actions: dateIntervalActions } = dateIntervalSlice

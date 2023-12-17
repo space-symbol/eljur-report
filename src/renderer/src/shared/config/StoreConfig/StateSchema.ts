@@ -10,11 +10,16 @@ import {
 import { FetchDataFormSchema } from '@renderer/features/fetchDataForm'
 import { GroupSchema } from '@renderer/entities/Group'
 import { DateIntervalSchema } from '@renderer/entities/DateInterval'
+import { AuthByApiSchema } from '@renderer/features/authByApiForm/models/types/AuthByApiSchema'
+import { UserSchema } from '@renderer/entities/User/models/types/UserSchema'
 
 export interface StateSchema {
+  user: UserSchema
   group: GroupSchema
-  dateInterval: DateIntervalSchema
   fetchDataForm: FetchDataFormSchema
+  dateInterval: DateIntervalSchema
+
+  authForm?: AuthByApiSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

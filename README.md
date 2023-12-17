@@ -1,34 +1,34 @@
-# eljur-report
+# eljur-reports
+Приложение, созданное с использованием Electron.js, React.js и TypeScript для создания JSON-отчетов на основе данных, полученных через API ЭлЖур.
 
-The Electron application with React and TypeScript that makes reports using api of eljur
-
-## Recommended IDE Setup
-
+## Рекомендуемая настройка среды разработки
 - [WebStorm](https://www.jetbrains.com/ru-ru/webstorm/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-## Project Setup
-
-### Install
+## Настройка проекта
+### Установка зависимостей
 
 ```bash
 $ npm install
 ```
-
-### Development
-
+### Запуск в режиме development
 ```bash
-$ npm run dev
+$ npm run start:dev
 ```
 
-### Build
-
+### Запуск в режиме production
 ```bash
-# For windows
+$ npm run start:prod
+```
+
+### Сборка
+```bash
+# Для Windows
 $ npm run build:win
 
-# For macOS
+# Для macOS
 $ npm run build:mac
 
-# For Linux
+# Для Linux
 $ npm run build:linux
 ```
+

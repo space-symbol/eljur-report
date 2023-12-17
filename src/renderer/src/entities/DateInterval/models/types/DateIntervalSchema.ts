@@ -1,4 +1,6 @@
 export interface DateIntervalSchema {
-  fromDate: string
-  toDate: string
+  fromDateValue: string
+  toDateValue: string
+  isValid: boolean
+  error: string
 }

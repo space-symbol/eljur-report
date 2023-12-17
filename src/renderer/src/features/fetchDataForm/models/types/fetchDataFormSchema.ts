@@ -1,6 +1,8 @@
-import { ReportResult } from '../types/reportResult'
+import { ReportResult } from './reportResult'
 
 export interface FetchDataFormSchema {
-  response: ReportResult[]
+  response: ReportResult
   isLoading: boolean
+  percentage: number
+  canceled: boolean
 }

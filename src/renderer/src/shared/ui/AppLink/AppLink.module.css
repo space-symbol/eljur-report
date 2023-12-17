@@ -1,6 +1,8 @@
 .AppLink {
-    &:hover {
+    &:hover, &:focus {
         opacity: 0.8;
+        outline: none;
+        text-decoration: underline;
     }
 }
 

@@ -14,12 +14,15 @@ function createWindow(): void {
     width: 900,
     height: 670,
     show: false,
+    title: 'Eljur Reports',
     autoHideMenuBar: true,
+    icon: icon,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      contextIsolation: true
+      contextIsolation: true,
+      devTools: is.dev
     }
   })
 
@@ -93,7 +96,6 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 ipcMain.handle('dialog:saveDialog', async (_, content: string, options: SaveDialogOptions) => {
-  console.log(_)
   const value = await dialog.showSaveDialog(options)
   const filepath = value?.filePath
   if (!filepath) {

@@ -6,10 +6,10 @@
 :root {
     --font-family-main: Montserrat;
 
-    --primary-color: black;
-    --secondary-color: #5b5a58;
+    --primary-color: #5b5a58;
+    --secondary-color: black;
 
-    --primary-bg-color: #d5382d;
+    --primary-bg-color: #d52d2d;
     --secondary-bg-color: #f2f2f2;
     --inverted-primary-bg-color: #ffffff;
 
@@ -39,4 +39,6 @@
     --skeleton-color: #a9a7a7;
     --skeleton-shadow: rgba(0 0 0 / 20%);
 
+    --modal-z-index: 100;
+    --refresh-icon-z-index: 50;
 }

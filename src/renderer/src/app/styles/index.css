@@ -2,9 +2,9 @@
 @import "reset.css";
 
 .app {
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     width: 100%;
-    overflow: auto;
     font: var(--font-m);
     display: flex;
     flex-direction: column;
@@ -13,7 +13,6 @@
 .content_page{
     display: flex;
     width: 100%;
-    height: 100%;
 }
 
 .content_container {
@@ -21,21 +20,62 @@
     max-width: 100%;
     overflow: auto;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 100%;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
 
-@media screen and (width < 321px) {
-    * {
-        font: var(--font-s);
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+
+.error {
+    font-size: 0.8em;
+    color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h2 {
+    font-size: 1.5em;
+    font-weight: 800;
+    margin-bottom: 0.5em;
+}
+
+@media screen and (width > 1920px) {
+    .app {
+        font: var(--font-xl);
     }
 }
-@media screen and (width < 1024px) {
-    * {
+@media screen and (width < 1920px) {
+    .app {
+        font: var(--font-l);
+    }
+}
+
+@media screen and (width < 1601px) {
+    .app {
         font: var(--font-m);
     }
 }
 
-@media screen and (width > 2300px) {
-    * {
-        font: var(--font-xl);
+@media screen and (width < 360px) {
+    .app {
+        font: var(--font-s);
     }
 }
+

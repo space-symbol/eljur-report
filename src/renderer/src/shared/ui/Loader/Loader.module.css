@@ -2,17 +2,19 @@
     width: 48px;
     height: 48px;
     display: block;
-    margin:15px auto;
     position: relative;
     color: #FFF;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
 }
 .wrapper {
-    height: 100vh;
     display: flex;
+    flex-direction: column;
+    gap: 3em;
+    height: 100%;
+    flex-grow: 1;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
 }
 .Loader::after,
 .Loader::before {
