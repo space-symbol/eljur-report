@@ -7,14 +7,16 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from 'electron-devtools-installer'
 import fs from 'fs'
-
+import { Connection, ResultSetHeader } from 'mysql2'
+import mysql from 'mysql2'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    show: true,
+    title: 'Элжур отчёты',
     show: false,
-    title: 'Eljur Reports',
     autoHideMenuBar: true,
     icon: icon,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -34,8 +36,6 @@ function createWindow(): void {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
-  // HMR for renderer base on electron-vite cli.
-  // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
     mainWindow.webContents.once('dom-ready', async () => {
@@ -107,3 +107,120 @@ ipcMain.handle('dialog:saveDialog', async (_, content: string, options: SaveDial
     }
   })
 })
+
+const createInitalDB = (connection: Connection) => {
+  const allGroups = `CREATE TABLE if not exists all_groups (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+  ); 
+  `
+  const schedules = `CREATE TABLE if not exists schedules (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    group_id INT,
+    date DATE,
+    name VARCHAR(255),
+    title VARCHAR(255),
+    alert VARCHAR(255),
+    FOREIGN KEY (group_id) REFERENCES all_groups(id)
+  );
+  `
+  const schedule_items = `CREATE TABLE if not exists schedule_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    schedule_id INT,
+    date DATE,
+    room VARCHAR(255),
+    name VARCHAR(255),
+    teacher VARCHAR(255),
+    sort INT,
+    teacher_id INT,
+    title VARCHAR(255),
+    num VARCHAR(255),
+    alert VARCHAR(255),
+    FOREIGN KEY (schedule_id) REFERENCES schedules(id)
+  );
+  `
+
+  return new Promise((resolve, reject) =>
+    connection.query(allGroups, (err) => {
+      if (err) {
+        reject(err)
+        return
+      }
+      connection.commit()
+      connection.query(schedules, (err) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        connection.commit()
+        connection.query(schedule_items, (err) => {
+          if (err) {
+            reject(err)
+            return
+          }
+        })
+        connection.commit()
+        return resolve(true)
+      })
+    })
+  )
+}
+ipcMain.handle('checkDatabaseConnection', async (_, databaseProperties: DatabaseProperties) => {
+  const connection = mysql.createConnection({
+    database: databaseProperties.database,
+    host: databaseProperties.host,
+    user: databaseProperties.user,
+    password: databaseProperties.password,
+    port: databaseProperties.port
+  })
+  return createInitalDB(connection).finally(() => connection.end())
+})
+
+ipcMain.handle(
+  'insertReportIntoDB',
+  async (_, databaseProperties: DatabaseProperties, reportResult: ReportResult) => {
+    const connection = mysql.createConnection({
+      ...databaseProperties
+    })
+    return insertDataToMySQL(connection, reportResult)
+  }
+)
+
+const insertDataToMySQL = (connection: Connection, data: ReportResult) => {
+  return new Promise((resolve) => {
+    data.forEach((groupData) => {
+      const groupName = Object.keys(groupData)[0]
+      connection.query<ResultSetHeader>(
+        `INSERT INTO all_groups (name) VALUES ('${groupName}')`,
+        (err, result) => {
+          if (err) throw err
+          const groupId = result.insertId
+
+          const scheduleData = groupData[groupName][0]
+          const scheduleDate = Object.keys(scheduleData)[0]
+          const { name, title, items, alert } = scheduleData[scheduleDate]
+
+          connection.query<ResultSetHeader>(
+            `INSERT INTO schedules (group_id, date, name, title, alert) VALUES (${groupId}, '${scheduleDate}', '${name}', '${title}', '${alert}')`,
+            (err, result) => {
+              if (err) throw err
+
+              const scheduleId = result.insertId
+
+              items.forEach((item) => {
+                const { name, num, room, teacher, sort, teacher_id } = item
+                connection.query(
+                  `INSERT INTO schedule_items (schedule_id, name, num, room, teacher, sort, teacher_id) VALUES (${scheduleId}, '${name}', '${num}', '${room}', '${teacher}', ${sort}, ${teacher_id})`,
+                  (err) => {
+                    if (err) throw err
+                  }
+                )
+              })
+            }
+          )
+        }
+      )
+    })
+    resolve('ok')
+  })
+}

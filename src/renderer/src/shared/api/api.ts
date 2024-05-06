@@ -26,7 +26,13 @@ $api.interceptors.request.use(
     return config
   },
   (error: AxiosError) => {
-    if (error.status === 403) {
+    if (error.response?.status === 401 && error.config && !error.config._retry) {
+      error.config._retry = true
+      localStorage.removeItem(API_USER_DATA_KEY)
+      window.location.reload()
+
+      return $api.request(error.config)
     }
+    return Promise.reject(error)
   }
 )

@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux'
 import { getUserAuthData, userActions } from '@renderer/entities/User'
 import { Navigate } from 'react-router-dom'
 import { useAppDispatch } from '@renderer/shared/hooks/useAppDispatch/useAppDispatch'
-import RefreshIcon from '@renderer/assets/refresh-icon.svg?react'
+import RefreshIcon from '@renderer/assets/icons/refresh-icon.svg?react'
+
 import { DataField } from '@renderer/shared/ui/DataField/ui/DataField'
 import { authWithoutToken } from '@renderer/features/authByApiForm'
 export interface ProfilePageProps {

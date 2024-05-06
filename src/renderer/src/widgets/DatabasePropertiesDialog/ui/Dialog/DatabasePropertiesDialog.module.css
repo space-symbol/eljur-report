@@ -1,0 +1,29 @@
+
+.dialog {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    z-index: 1000;
+    background-color: white;
+    max-width: min(100vw, 500px);
+    height: min-content;
+    max-height: 100vh;
+    overflow: auto;
+
+    .form {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.backddrop {
+    border-radius: 0;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}

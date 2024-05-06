@@ -1,6 +1,7 @@
 # Eljur Reports
 Приложение, созданное с использованием Electron.js, React.js и TypeScript для создания отчетов на основе данных, полученных через API ЭлЖур.
 
+
 ## Настройка проекта
 ### Установка зависимостей
 
@@ -27,5 +28,3 @@ $ npm run build:mac
 
 # Для Linux
 $ npm run build:linux
-```
-

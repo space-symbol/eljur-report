@@ -97,7 +97,7 @@ const AuthForm = ({ className }: AuthFormProps) => {
       <h2 className={cls.formTitle}>Вход</h2>
       <Input
         className={cls.input}
-        onChange={onLoginChange}
+        onChange={({ target }) => onLoginChange(target.value)}
         value={login}
         label={'Логин'}
         required
@@ -105,7 +105,7 @@ const AuthForm = ({ className }: AuthFormProps) => {
       <Input
         type={'password'}
         className={cls.input}
-        onChange={onPasswordChange}
+        onChange={({ target }) => onPasswordChange(target.value)}
         value={password}
         label={'Пароль'}
         required
@@ -113,7 +113,7 @@ const AuthForm = ({ className }: AuthFormProps) => {
       <Input
         type={'password'}
         className={cls.input}
-        onChange={onDevkeyChange}
+        onChange={({ target }) => onDevkeyChange(target.value)}
         value={devkey}
         label={'Ключ разработчика (devkey)'}
         required
@@ -121,7 +121,7 @@ const AuthForm = ({ className }: AuthFormProps) => {
       <Input
         type={'password'}
         className={cls.input}
-        onChange={onApiTokenChange}
+        onChange={({ target }) => onApiTokenChange(target.value)}
         value={authToken}
         label={'Токен пользователя (auth_token, если есть)'}
       />
