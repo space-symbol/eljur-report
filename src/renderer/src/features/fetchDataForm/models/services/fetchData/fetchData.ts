@@ -42,6 +42,7 @@ export const fetchData = createAsyncThunk<ReportResult, FetchDataProps, ThunkCon
         result.push(outputData)
         const percentage = Math.round((result.length / groups.length) * 100)
         dispatch(fetchDataFormActions.setPercentage(percentage))
+
         await new Promise((resolve) => setTimeout(resolve, 1000)) // Ждём 1 секунду перед следующим запросом
       } catch (error) {
         console.log(error)

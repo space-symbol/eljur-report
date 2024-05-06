@@ -16,6 +16,7 @@ function createWindow(): void {
     height: 670,
     show: true,
     title: 'Элжур отчёты',
+    show: false,
     autoHideMenuBar: true,
     icon: icon,
     ...(process.platform === 'linux' ? { icon } : {}),

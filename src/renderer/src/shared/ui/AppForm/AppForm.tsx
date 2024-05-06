@@ -17,6 +17,7 @@ export const AppForm = (props: AppForm) => {
       {children}
       {error && !successMessage && <span className={cls.errorText}>{error}</span>}
       {successMessage && <span className={cls.messageText}>{successMessage}</span>}
+
     </form>
   )
 }

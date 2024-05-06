@@ -12,6 +12,7 @@ declare global {
         databaseProperties: DatabaseProperties,
         report: ReportResult
       ) => Promise<void>
+
     }
   }
 }
