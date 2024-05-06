@@ -4,7 +4,15 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 const api = {
   showSaveDialog: (content: string, options: SaveDialogOptions) =>
-    ipcRenderer.invoke('dialog:saveDialog', content, options).then((value) => value)
+    ipcRenderer.invoke('dialog:saveDialog', content, options).then((value) => value),
+  checkDBConnection: (databaseProperties: DatabaseProperties) => {
+    return ipcRenderer.invoke('checkDatabaseConnection', databaseProperties)
+  },
+  insertReportIntoDB: (databaseProperties: DatabaseProperties, report: ReportResult) => {
+    return ipcRenderer
+      .invoke('insertReportIntoDB', databaseProperties, report)
+      .catch((err) => console.log(err))
+  }
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

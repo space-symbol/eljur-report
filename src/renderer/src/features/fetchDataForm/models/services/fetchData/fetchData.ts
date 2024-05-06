@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from '@renderer/shared/config/StoreConfig/StateSchema'
 import { Group, ReportResult } from '../../types/reportResult'
-import { SaveDialogOptions } from 'electron'
 import { fetchDataFormActions } from '../../slice/fetchDataFormSlice'
 
 interface FetchDataProps {
@@ -43,7 +42,6 @@ export const fetchData = createAsyncThunk<ReportResult, FetchDataProps, ThunkCon
         result.push(outputData)
         const percentage = Math.round((result.length / groups.length) * 100)
         dispatch(fetchDataFormActions.setPercentage(percentage))
-
         await new Promise((resolve) => setTimeout(resolve, 1000)) // Ждём 1 секунду перед следующим запросом
       } catch (error) {
         console.log(error)
@@ -53,24 +51,6 @@ export const fetchData = createAsyncThunk<ReportResult, FetchDataProps, ThunkCon
       if (state.fetchDataForm.canceled) {
         break
       }
-    }
-    const content = JSON.stringify(result, null, 2)
-    const options: SaveDialogOptions = {
-      defaultPath: '/result',
-      filters: [
-        {
-          name: 'Files',
-          extensions: ['json']
-        }
-      ]
-    }
-
-    try {
-      const filePath = window.api.showSaveDialog(content, options)
-      console.log(filePath)
-    } catch (err) {
-      console.log(err)
-      return rejectWithValue(`При записи данных в файл возникла ошибка: ${err}`)
     }
     dispatch(fetchDataFormActions.setCanceled(false))
     return result

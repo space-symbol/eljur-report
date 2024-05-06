@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: my-app
+  executableName: Eljur Reports
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

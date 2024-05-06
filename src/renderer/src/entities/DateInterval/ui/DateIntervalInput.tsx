@@ -97,7 +97,7 @@ export const DateIntervalInput = memo((props: DateIntervalProps) => {
         <div className={cls.dateInterval}>
           <Input
             type="date"
-            onChange={onFromDateInputChange}
+            onChange={({ target }) => onFromDateInputChange(target.value)}
             onBlur={onFromDateInputBlur}
             value={fromDateValue}
             max={maxDate}
@@ -105,7 +105,7 @@ export const DateIntervalInput = memo((props: DateIntervalProps) => {
           <span className={cls.dash}>-</span>
           <Input
             type="date"
-            onChange={onToDateInputChange}
+            onChange={({ target }) => onToDateInputChange(target.value)}
             onBlur={onToDateInputBlur}
             value={toDateValue}
             max={maxDate}

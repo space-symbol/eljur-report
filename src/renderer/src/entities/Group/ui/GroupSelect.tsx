@@ -108,7 +108,7 @@ export const GroupSelect = (props: GroupSelectProps) => {
         <div className={cls.selectGroupModal} ref={ref}>
           <div className={cls.container}>
             <div className={cls.inputWrapper}>
-              <Input onChange={onChangeInput} type="text" />
+              <Input onChange={({ target }) => onChangeInput(target.value)} type="text" />
             </div>
             {!!selectedGroups.length && (
               <div

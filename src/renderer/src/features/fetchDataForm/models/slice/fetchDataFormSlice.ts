@@ -1,37 +1,75 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { FetchDataFormSchema } from '../types/fetchDataFormSchema'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { DatabaseProperties, FetchDataFormSchema, SaveInto } from '../types/fetchDataFormSchema'
 import { fetchData } from '../services/fetchData/fetchData'
+import {
+  DATABASE_NAME,
+  DATABASE_USER,
+  DATABASE_PASSWORD,
+  DATABASE_HOST,
+  DATABASE_PORT
+} from '@renderer/shared/const/localstorage'
+import { setDBPropsToLocalStorage } from '@renderer/shared/lib/setDBPropsToLocalStorage'
+import { SaveDialogOptions } from 'electron'
+import { ReportResult } from '../types/reportResult'
+import { getDBProperties } from '@renderer/shared/lib/getDBProperties'
+import { saveData } from '../services/saveData'
 
 const initialState: FetchDataFormSchema = {
   response: [],
-  isLoading: false,
+  isFetching: false,
   percentage: 0,
-  canceled: false
+  canceled: false,
+  saveInto: SaveInto.json,
+  done: false,
+
+  databaseProperties: {
+    database: localStorage.getItem(DATABASE_NAME) || 'test1',
+    user: localStorage.getItem(DATABASE_USER) || 'root',
+    password: localStorage.getItem(DATABASE_PASSWORD) || 'password',
+    host: localStorage.getItem(DATABASE_HOST) || 'localhost',
+    port: Number(localStorage.getItem(DATABASE_PORT)) || 3306
+  }
 }
 
 const fetchDataFormSlice = createSlice({
   name: 'fetchDataForm',
   initialState,
   reducers: {
-    setPercentage: (state, action) => {
+    setPercentage: (state, action: PayloadAction<number>) => {
       state.percentage = action.payload
     },
-    setCanceled: (state, action) => {
+    setCanceled: (state, action: PayloadAction<boolean>) => {
       state.canceled = action.payload
+    },
+    setSaveInto: (state, action: PayloadAction<SaveInto>) => {
+      state.saveInto = action.payload
+    },
+    setDatabaseData: (state, action: PayloadAction<DatabaseProperties>) => {
+      state.databaseProperties = action.payload
+      setDBPropsToLocalStorage(action.payload)
+    },
+    setDone: (state, action: PayloadAction<boolean>) => {
+      state.done = action.payload
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchData.pending, (state) => {
-        state.isLoading = true
+        state.isFetching = true
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.response = action.payload
-        state.isLoading = false
+        state.isFetching = false
         state.percentage = 0
       })
       .addCase(fetchData.rejected, (state) => {
-        state.isLoading = false
+        state.isFetching = false
+      })
+      .addCase(saveData.fulfilled, (state) => {
+        state.done = true
+      })
+      .addCase(saveData.rejected, (state) => {
+        state.done = false
       })
   }
 })

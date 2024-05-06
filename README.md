@@ -1,8 +1,8 @@
-# eljur-reports
-Приложение, созданное с использованием Electron.js, React.js и TypeScript для создания JSON-отчетов на основе данных, полученных через API ЭлЖур.
+# Eljur Reports
+Приложение, созданное с использованием Electron.js, React.js и TypeScript для создания отчетов на основе данных, полученных через API ЭлЖур.
 
-## Рекомендуемая настройка среды разработки
-- [WebStorm](https://www.jetbrains.com/ru-ru/webstorm/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+# Изменения в этой ветке
+Добавлена возможность сохранять отчёты в базе данных MySQL. Для этого вам нужно создать базу данных с произвольным названием и перед созданием отчёта выбрать пункт "Сохранить данные в базу данных MySQL"
 
 ## Настройка проекта
 ### Установка зависимостей
@@ -31,4 +31,3 @@ $ npm run build:mac
 # Для Linux
 $ npm run build:linux
 ```
-

@@ -5,6 +5,6 @@ export { fetchDataFormReducer, fetchDataFormActions } from './models/slice/fetch
 export {
   getFetchDataFormData,
   getFetchDataFormPercentage,
-  getFetchDataFormIsLoading,
+  getFetchDataFormIsFetching,
   getFetchDataFormCanceled
 } from './models/selectors/fetchDataSelectors'

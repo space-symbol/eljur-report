@@ -12,8 +12,11 @@
     --primary-bg-color: #d52d2d;
     --secondary-bg-color: #f2f2f2;
     --inverted-primary-bg-color: #ffffff;
+    
+    --warning-red-color: #df2828;
+    --success-green-color: #00b300;
 
-    --font-size-s: 12px;
+    --font-size-s: 12px;    
     --font-line-s: normal;
     --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
 

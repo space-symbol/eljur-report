@@ -25,6 +25,33 @@
     width: 100%;
 }
 
+.radopGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: none;
+    gap: 0.7em;
+
+    .radopGrouplabel{
+        color: black;
+    }
+
+    .radioContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+
+       
+        .radiolabel {
+            line-height: 0.8em;
+            cursor: pointer;
+        }
+    }
+
+   
+}
+
 
 .requestButton {
     height: 2.5em;

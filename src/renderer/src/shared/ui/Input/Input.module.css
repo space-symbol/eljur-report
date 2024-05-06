@@ -4,6 +4,7 @@
     gap: 3px;
     width: 100%;
     position: relative;
+    margin-bottom: 0.5em;
 }
 
 .input {
@@ -22,10 +23,6 @@
         background: rgba(255, 255, 255, 0.39);
         border: 1px solid rgba(0, 0, 0, 0.27);
     }
-}
-
-.required {
-    color: red;
 }
 
 .inputLabel {
@@ -73,10 +70,6 @@
     display: none;
 }
 
-.fileInput {
-    display: none;
-}
-
 .withIcon {
     padding-right: 2em;
 }
@@ -85,16 +78,11 @@
     height: 1em;
     width: 1em;
 }
-
-.iconButton {
+.error {
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    z-index: var(--refresh-icon-z-index);
-    cursor: pointer;
-    top: 0;
+    bottom: -1.5em;
+    left: 0;
+    color: var(--warning-red-color);
 }
 
 .left {

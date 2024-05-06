@@ -1,32 +1,26 @@
-import React, { ChangeEvent, InputHTMLAttributes } from 'react'
+import React, { ChangeEvent, InputHTMLAttributes, forwardRef } from 'react'
 import { Button } from '@renderer/shared/ui/Button/Button'
 import { classNames, Modes } from '@renderer/shared/lib/classNames/classNames'
 import cls from './Input.module.css'
 
-type HTMLInputProps = Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  'value' | 'onChange' | 'onKeyDown' | 'onBlur'
->
+type HTMLInputProps = InputHTMLAttributes<HTMLInputElement>
+
 
 interface InputProps extends HTMLInputProps {
   className?: string
   wrapperClassName?: string
   value?: string | number
   readOnly?: boolean
-  onChange?: (value: string) => void
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onIconClick?: () => void
   type?: string
   label?: string
   required?: boolean
   LeftIcon?: SVG
   RightIcon?: SVG
-  filepath?: string
-  buttonText?: string
+  error?: string
 }
 
-export const Input = (props: InputProps) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps, ref) => {
   const {
     className,
     value,
@@ -40,11 +34,12 @@ export const Input = (props: InputProps) => {
     LeftIcon,
     RightIcon,
     type,
+    error,
     ...otherProps
   } = props
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event.target.value)
+    onChange?.(event)
   }
   const onKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     onKeyDown?.(event)
@@ -72,6 +67,7 @@ export const Input = (props: InputProps) => {
         )}
         <div className={cls.inputWrapper}>
           <input
+            ref={ref}
             type={type}
             className={classNames(cls.input, [], {
               [cls.withIcon]: Boolean(LeftIcon || RightIcon)
@@ -84,6 +80,7 @@ export const Input = (props: InputProps) => {
             readOnly={readOnly}
             {...otherProps}
           />
+          {error && <span className={cls.error}>{error}</span>}
           {Icon && (
             <Button
               disabled={readOnly}
@@ -99,4 +96,6 @@ export const Input = (props: InputProps) => {
   }
 
   return <div className={classNames(cls.Container, [className], modes)}>{renderInput()}</div>
-}
+});
+
+Input.displayName = 'Input'

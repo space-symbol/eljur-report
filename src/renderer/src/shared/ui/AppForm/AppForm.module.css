@@ -3,6 +3,25 @@
     box-shadow: 0 0 24px rgba(0, 0, 0, .08), 0 1px 4px rgba(0, 0, 0, .12);
     flex-direction: column;
     gap: 1.5em;
-    padding: 2.5em 2em;
+    padding: 1em 1em 1em 1em;
+    margin: 1em;
     border: none;
+    position: relative;
+    
+    &.error{
+        border: 1px solid var(--warning-red-color);
+    }
+    
+    .errorText, .messageText {
+        display: flex;
+        margin: auto;
+        width: fit-content;
+    }
+    .messageText{
+        color: var(--success-green-color);
+    }
+    .errorText {
+        color: var(--warning-red-color);
+
+    }
 }
