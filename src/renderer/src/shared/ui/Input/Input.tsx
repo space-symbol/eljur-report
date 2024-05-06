@@ -5,7 +5,6 @@ import cls from './Input.module.css'
 
 type HTMLInputProps = InputHTMLAttributes<HTMLInputElement>
 
-
 interface InputProps extends HTMLInputProps {
   className?: string
   wrapperClassName?: string
@@ -96,6 +95,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps
   }
 
   return <div className={classNames(cls.Container, [className], modes)}>{renderInput()}</div>
-});
+})
 
 Input.displayName = 'Input'

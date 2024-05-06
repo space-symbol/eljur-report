@@ -3,19 +3,20 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from '@renderer/shared/config/StoreConfig/StateSchema'
 import { SaveInto } from '../types/fetchDataFormSchema'
 import { SaveDialogOptions } from 'electron'
-import { fetchDataFormActions } from '../slice/fetchDataFormSlice'
 
 export const saveData = createAsyncThunk<void, ReportResult, ThunkConfig<string>>(
   'fetchDataForm/saveData',
-  async (result, thunkAPI) => {
-    const { _, rejectWithValue, dispatch, getState } = thunkAPI
+  async (report, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI
     const state = getState().fetchDataForm
-
-    if (state.canceled === true) return
+    console.log(state)
+    if (state.canceled) {
+      return rejectWithValue('Отменено пользователем')
+    }
     switch (state.saveInto) {
       case SaveInto.json:
         {
-          const content = JSON.stringify(result, null, 2)
+          const content = JSON.stringify(report, null, 2)
           const options: SaveDialogOptions = {
             defaultPath: '/result',
             filters: [
@@ -27,19 +28,18 @@ export const saveData = createAsyncThunk<void, ReportResult, ThunkConfig<string>
           }
 
           try {
-            window.api.showSaveDialog(content, options)
+            await window.api.showSaveDialog(content, options)
           } catch (err) {
-            console.log(err)
+            rejectWithValue(`Произошла ошибка при сохранении данных: ${err}`)
           }
         }
         break
       case SaveInto.mysql: {
-        window.api.insertReportIntoDB(state.databaseProperties, result).then(
-          () => {
-            dispatch(fetchDataFormActions.setDone(true))
-          },
-          () => rejectWithValue('Произошла ошибка при сохранении данных')
-        )
+        try {
+          await window.api.insertReportIntoDB(state.databaseProperties, report)
+        } catch (err) {
+          rejectWithValue(`Произошла ошибка при сохранении данных ${err}`)
+        }
         break
       }
     }
