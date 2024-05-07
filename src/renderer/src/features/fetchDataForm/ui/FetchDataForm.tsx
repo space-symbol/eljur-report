@@ -29,6 +29,7 @@ import { SaveInto } from '../models/types/fetchDataFormSchema'
 import { DatabasePropertiesDialog } from '@renderer/widgets/DatabasePropertiesDialog'
 import { saveData } from '../models/services/saveData'
 
+
 interface FetchDataFormProps {
   className?: string
 }

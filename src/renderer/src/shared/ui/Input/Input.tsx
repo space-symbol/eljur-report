@@ -97,4 +97,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props: InputProps
   return <div className={classNames(cls.Container, [className], modes)}>{renderInput()}</div>
 })
 
-Input.displayName = 'Input'
+  Input.displayName = 'Input'
+
