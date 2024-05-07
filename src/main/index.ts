@@ -6,7 +6,7 @@ import installExtension, {
   REDUX_DEVTOOLS,
   REACT_DEVELOPER_TOOLS
 } from 'electron-devtools-installer'
-import fs from 'fs'
+import fs from 'fs/promises'
 import { Connection, ResultSetHeader } from 'mysql2'
 import mysql from 'mysql2'
 function createWindow(): void {
@@ -98,14 +98,12 @@ app.on('window-all-closed', () => {
 ipcMain.handle('dialog:saveDialog', async (_, content: string, options: SaveDialogOptions) => {
   const value = await dialog.showSaveDialog(options)
   const filepath = value?.filePath
-  if (!filepath) {
-    return
+
+  if (value.canceled || !filepath) {
+    throw new Error('No path provided')
   }
-  fs.writeFile(filepath, content, (err) => {
-    if (err) {
-      console.log(err)
-    }
-  })
+  await fs.writeFile(filepath, content)
+  return filepath
 })
 
 const createInitalDB = (connection: Connection) => {
@@ -221,6 +219,6 @@ const insertDataToMySQL = (connection: Connection, data: ReportResult) => {
         }
       )
     })
-    resolve('ok')
+    resolve('Done')
   })
 }

@@ -9,9 +9,6 @@ import {
   DATABASE_PORT
 } from '@renderer/shared/const/localstorage'
 import { setDBPropsToLocalStorage } from '@renderer/shared/lib/setDBPropsToLocalStorage'
-import { SaveDialogOptions } from 'electron'
-import { ReportResult } from '../types/reportResult'
-import { getDBProperties } from '@renderer/shared/lib/getDBProperties'
 import { saveData } from '../services/saveData'
 
 const initialState: FetchDataFormSchema = {
@@ -23,9 +20,9 @@ const initialState: FetchDataFormSchema = {
   done: false,
 
   databaseProperties: {
-    database: localStorage.getItem(DATABASE_NAME) || 'test1',
-    user: localStorage.getItem(DATABASE_USER) || 'root',
-    password: localStorage.getItem(DATABASE_PASSWORD) || 'password',
+    database: localStorage.getItem(DATABASE_NAME) || '',
+    user: localStorage.getItem(DATABASE_USER) || '',
+    password: localStorage.getItem(DATABASE_PASSWORD) || '',
     host: localStorage.getItem(DATABASE_HOST) || 'localhost',
     port: Number(localStorage.getItem(DATABASE_PORT)) || 3306
   }
@@ -56,11 +53,13 @@ const fetchDataFormSlice = createSlice({
     builder
       .addCase(fetchData.pending, (state) => {
         state.isFetching = true
+        state.canceled = false
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.response = action.payload
         state.isFetching = false
         state.percentage = 0
+        state.canceled = false
       })
       .addCase(fetchData.rejected, (state) => {
         state.isFetching = false

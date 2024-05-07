@@ -43,17 +43,18 @@ export const fetchData = createAsyncThunk<ReportResult, FetchDataProps, ThunkCon
         const percentage = Math.round((result.length / groups.length) * 100)
         dispatch(fetchDataFormActions.setPercentage(percentage))
 
-        await new Promise((resolve) => setTimeout(resolve, 1000)) // Ждём 1 секунду перед следующим запросом
+        await new Promise((resolve) =>
+          setTimeout(resolve, process.env.NODE_ENV === 'development' ? 1000 : 500)
+        )
       } catch (error) {
         console.log(error)
         return rejectWithValue(`Произошла ошибка при получении данных о группе ${group}: ${error}`)
       }
       const state = getState()
       if (state.fetchDataForm.canceled) {
-        break
+        return rejectWithValue('Отменено пользователем')
       }
     }
-    dispatch(fetchDataFormActions.setCanceled(false))
     return result
   }
 )

@@ -6,13 +6,12 @@ declare global {
   interface Window {
     electron: ElectronAPI
     api: {
-      showSaveDialog: (content: string, options: SaveDialogOptions) => string
+      showSaveDialog: (content: string, options: SaveDialogOptions) => Promise<string>
       checkDBConnection: (databaseProperties: DatabaseProperties) => Promise<boolean>
       insertReportIntoDB: (
         databaseProperties: DatabaseProperties,
         report: ReportResult
-      ) => Promise<void>
-
+      ) => Promise<string>
     }
   }
 }

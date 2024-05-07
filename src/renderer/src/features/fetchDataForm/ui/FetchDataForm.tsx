@@ -11,7 +11,8 @@ import {
   getFetchDataFormDatabaseProperties,
   getFetchDataFormIsFetching,
   getFetchDataFormDone,
-  getFetchDataFormData
+  getFetchDataFormData,
+  getFetchDataFormSaveInto
 } from '../models/selectors/fetchDataSelectors'
 import { DateIntervalInput } from '@renderer/entities/DateInterval'
 import {
@@ -49,6 +50,7 @@ export const FetchDataForm = memo((props: FetchDataFormProps) => {
   const isDone = useSelector(getFetchDataFormDone)
   const isReady = dateIntervalIsValid && groupSelectIsValid && !isFetching
   const response = useSelector(getFetchDataFormData)
+  const saveInto = useSelector(getFetchDataFormSaveInto)
   const [isDatabaseDialogOpen, setDatabaseDialogOpen] = useState(false)
 
   const onMySQLFormatClick = () => {
@@ -66,7 +68,18 @@ export const FetchDataForm = memo((props: FetchDataFormProps) => {
         onSubmit={(event) => {
           event.preventDefault()
           dispatch(fetchDataFormActions.setDone(false))
-          setDatabaseDialogOpen(true)
+          if (SaveInto.mysql === saveInto) {
+            setDatabaseDialogOpen(true)
+          } else {
+            dispatch(
+              fetchData({
+                selectedGroups,
+                groupsList,
+                fromDateValue,
+                toDateValue
+              })
+            ).then(() => dispatch(saveData(response)))
+          }
         }}
         className={classNames(cls.FetchDataForm, [className], {})}
       >
@@ -138,8 +151,7 @@ export const FetchDataForm = memo((props: FetchDataFormProps) => {
                   fromDateValue,
                   toDateValue
                 })
-              )
-              dispatch(saveData(response))
+              ).then(() => dispatch(saveData(response)))
             }}
           />,
           appContent
